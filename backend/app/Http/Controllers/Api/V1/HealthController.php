@@ -24,7 +24,7 @@ class HealthController extends Controller
 
         return response()->json([
             'status' => $dbOk ? 'ok' : 'degraded',
-            'service' => 'arpos-api',
+            'service' => 'acms-api',
             'version' => '1.0.0-p1',
             'database' => [
                 'ok' => $dbOk,

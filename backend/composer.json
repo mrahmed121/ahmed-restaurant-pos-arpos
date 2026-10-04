@@ -1,8 +1,8 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "ahmed/arpos",
+    "name": "ahmed/acms",
     "type": "project",
-    "description": "Ahmed Restaurant POS System (ARPOS) \u2014 Laravel 11 API",
+    "description": "Ahmed Construction Project Management System (ACPMS) \u2014 Laravel 11 API",
     "keywords": [
         "laravel",
         "framework"

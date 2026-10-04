@@ -1,49 +1,28 @@
 <?php
 namespace Database\Seeders;
-use App\Domains\Menu\Models\Category;
-use App\Domains\Menu\Models\MenuItem;
-use App\Domains\Restaurant\Models\Branch;
-use App\Domains\Restaurant\Models\DiningTable;
+use App\Domains\Clinic\Models\Department;
+use App\Domains\Clinic\Models\Doctor;
+use App\Domains\Patients\Models\Patient;
+use App\Domains\Pharmacy\Models\Medicine;
 use App\Domains\Shared\Models\Company;
 use Illuminate\Database\Seeder;
 class DemoDataSeeder extends Seeder
 {
     public function run(): void
     {
-        $company = Company::where('code', 'AHMED-FOODS')->firstOrFail();
-
-        $branch = Branch::firstOrCreate(
-            ['company_id' => $company->id, 'code' => 'DHA-01'],
-            ['name' => 'DHA Branch', 'address' => 'DHA Phase 5, Karachi', 'phone' => '021-35800001', 'is_active' => true]
-        );
-
-        foreach (['T1' => 2, 'T2' => 4, 'T3' => 4, 'T4' => 6, 'T5' => 8] as $code => $cap) {
-            DiningTable::firstOrCreate(
-                ['branch_id' => $branch->id, 'code' => $code],
-                ['company_id' => $company->id, 'name' => "Table $code", 'capacity' => $cap, 'status' => 'available']
-            );
+        $company = Company::where('code', 'AHMED-CLINIC')->firstOrFail();
+        foreach (['General Medicine', 'Pediatrics', 'Cardiology', 'Orthopedics'] as $dept) {
+            Department::firstOrCreate(['company_id' => $company->id, 'name' => $dept], ['is_active' => true]);
         }
-
-        $categories = [
-            'Starters' => ['Chicken Wings' => 450, 'French Fries' => 250, 'Spring Rolls' => 350],
-            'Burgers' => ['Classic Beef Burger' => 650, 'Chicken Zinger' => 550, 'Fish Fillet' => 700],
-            'Pizza' => ['Chicken Tikka Pizza' => 1200, 'Cheese Lovers' => 1100, 'BBQ Chicken' => 1300],
-            'Desi' => ['Chicken Biryani' => 350, 'Beef Karahi' => 850, 'Daal Fry' => 300],
-            'Beverages' => ['Fresh Lime Soda' => 200, 'Mango Lassi' => 250, 'Cold Coffee' => 300],
-            'Desserts' => ['Gulab Jamun' => 200, 'Kheer' => 250, 'Ice Cream' => 300],
-        ];
-
-        foreach ($categories as $catName => $items) {
-            $cat = Category::firstOrCreate(
-                ['company_id' => $company->id, 'name' => $catName],
-                ['description' => "$catName menu", 'is_active' => true]
-            );
-            foreach ($items as $itemName => $price) {
-                MenuItem::firstOrCreate(
-                    ['company_id' => $company->id, 'category_id' => $cat->id, 'name' => $itemName],
-                    ['price' => $price, 'cost' => $price * 0.4, 'is_available' => true, 'preparation_time' => 15]
-                );
-            }
+        $dept = Department::where('company_id', $company->id)->first();
+        foreach ([['Dr. Ahmed Khan', 'Cardiology', 1500], ['Dr. Sara Ali', 'Pediatrics', 1200]] as [$name, $spec, $fee]) {
+            Doctor::firstOrCreate(['company_id' => $company->id, 'name' => $name], ['department_id' => $dept->id, 'specialization' => $spec, 'consultation_fee' => $fee, 'is_active' => true]);
+        }
+        foreach ([['Ali Raza', '0300-1234567'], ['Fatima Khan', '0300-7654321']] as [$name, $phone]) {
+            Patient::firstOrCreate(['company_id' => $company->id, 'name' => $name], ['patient_code' => 'PAT-' . strtoupper(substr(md5($name), 0, 6)), 'phone' => $phone]);
+        }
+        foreach ([['Paracetamol 500mg', 'Paracetamol', 'tablet', 1000, 50], ['Amoxicillin 250mg', 'Amoxicillin', 'capsule', 500, 25]] as [$name, $generic, $unit, $stock, $price]) {
+            Medicine::firstOrCreate(['company_id' => $company->id, 'name' => $name], ['generic_name' => $generic, 'unit' => $unit, 'stock_quantity' => $stock, 'unit_price' => $price]);
         }
     }
 }

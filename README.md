@@ -1,64 +1,57 @@
-# ARPOS — Ahmed Restaurant POS
+# ACMS — Ahmed Clinic Management System
 
-**"Ahmed — Serve Every Order With Precision."**
+**"Ahmed — Care, Coordinated."**
 
 **Developed by Ahmed**
 
 ## Overview
 
-ARPOS is a complete restaurant point-of-sale and management system for restaurants, cafés, and food businesses. It handles the full order lifecycle: menu management → POS ordering → kitchen display → payments → reporting.
+ACMS is a complete clinic management system for clinics and small hospitals. It manages patients, doctors, appointments, pharmacy, and clinical workflows.
 
 ## Features
 
-- **POS Terminal** — Fast order creation with menu browsing, cart, and order types (dine-in, takeaway, delivery)
-- **Kitchen Display (KDS)** — Live order tickets with status workflow (pending → preparing → ready → served), auto-refresh
-- **Menu Management** — Categories, items, modifiers, pricing
-- **Order Management** — Full lifecycle with status tracking
-- **Payments** — Cash, card, mobile with split payment support
-- **Branches** — Multi-branch support with isolation
-- **Tables** — Dining table management
-- **Reports** — Sales analytics with real queries (revenue, orders, top items, by day/type)
-- **RBAC** — 9 roles with granular permissions
-- **Audit Logging** — All financial operations tracked
+- **Patient Management** — Records with medical history, search, visit timeline
+- **Appointment Scheduling** — Doctor availability with conflict detection
+- **Doctor Management** — Specializations, departments, consultation fees
+- **Pharmacy** — Medicine inventory with low-stock alerts
+- **Prescriptions** — Linked to appointments (foundation)
+- **Dashboard** — Real query-backed stats
+- **RBAC** — 8 roles with granular permissions
+- **Audit Logging** — All clinical/financial operations tracked
 
 ## Tech Stack
 
 - Backend: Laravel 11 API + JWT
 - Frontend: React 18 + Vite + Tailwind
-- Database: SQLite / MySQL / PostgreSQL
 
 ## Quick Start
 
 ```bash
-# Backend
 cd backend && composer install && cp .env.example .env
 php artisan key:generate && php artisan jwt:secret
 php artisan migrate --seed
-php artisan serve --host=127.0.0.1 --port=8001
+php artisan serve --host=127.0.0.1 --port=8002
 
-# Frontend
 cd frontend && npm install
-echo "VITE_API_BASE_URL=http://127.0.0.1:8001/api/v1" > .env
-npm run dev -- --host 127.0.0.1 --port 5174
+echo "VITE_API_BASE_URL=http://127.0.0.1:8002/api/v1" > .env
+npm run dev -- --host 127.0.0.1 --port 5175
 ```
 
-## Demo Accounts (password: password123)
+## Demo (password: password123)
 
 | Role | Email |
 |------|-------|
-| Owner | owner@ahmedfoods.local |
-| Branch Manager | manager@ahmedfoods.local |
-| Cashier | cashier@ahmedfoods.local |
-| Waiter | waiter@ahmedfoods.local |
-| Kitchen Staff | kitchen@ahmedfoods.local |
-| Accountant | accountant@ahmedfoods.local |
+| Admin | admin@ahmedclinic.local |
+| Doctor | doctor@ahmedclinic.local |
+| Receptionist | receptionist@ahmedclinic.local |
+| Pharmacist | pharmacist@ahmedclinic.local |
 
 ## License & Attribution
 
-This project is licensed under the MIT License.
+MIT License.
 
-**Based on:** [RestoPOS](https://github.com/faizaldevs/RestoPOS) by Anowar Hossain, MIT License (Copyright (c) 2020 Anowar Hossain).
+**Based on:** [klinik-laravel-api](https://github.com/IslamTaleb11/klinik-laravel-api) by Islam Taleb, MIT License (Copyright (c) 2025 Islam Taleb).
 
-**Substantially modified by Ahmed:** Complete architectural rebuild from Laravel 8 + Vue 2 + AdminLTE to Laravel 11 API + React 18 SPA; JWT authentication replacing Passport; granular RBAC permission matrix (9 roles); new kitchen display system; new analytics reporting engine; new audit logging; new branch isolation model; Ahmed design system UI. The upstream's restaurant domain concepts (POS flow, KOT, menu structure) informed the design; all code is newly written.
+**Substantially modified by Ahmed:** Complete product rebuild — new React 18 SPA frontend (upstream is API-only); JWT + granular RBAC (8 roles); appointment conflict detection; patient visit timeline; pharmacy low-stock alerts; analytics dashboard; audit logging; Ahmed design system. Upstream's clinic domain concepts informed the design; all code is newly written.
 
-Original MIT LICENSE and copyright notice are preserved in `LICENSE-UPSTREAM.md`.
+Original MIT LICENSE preserved in `LICENSE-UPSTREAM.md`.

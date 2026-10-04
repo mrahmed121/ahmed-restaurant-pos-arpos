@@ -4,5 +4,4 @@ vendor/
 dist/
 *.log
 .DS_Store
-backend/storage/logs/*
 backend/database/database.sqlite

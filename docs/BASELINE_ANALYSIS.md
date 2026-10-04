@@ -1,57 +1,52 @@
-# Baseline Analysis — faizaldevs/RestoPOS (upstream)
+# Baseline Analysis — IslamTaleb11/klinik-laravel-api (upstream)
 
-**Source:** https://github.com/faizaldevs/RestoPOS
-**Author:** Anowar Hossain (faizaldevs)
-**License:** MIT (Copyright (c) 2020 Anowar Hossain)
-**Stars:** 104 | **Pushed:** 2025-03-10
+**Source:** https://github.com/IslamTaleb11/klinik-laravel-api
+**Author:** Islam Taleb
+**License:** MIT (Copyright (c) 2025 Islam Taleb)
+**Stars:** 27 | **Pushed:** 2025-09
 
 ## What It Does
-SaaS multi-tenant restaurant billing & management system.
-- Laravel 8 backend, Vue.js frontend, AdminLTE UI
-- Stancl Tenancy (multi-tenancy), Laravel Passport (API auth)
-- POS billing, Kitchen Order Tickets (KOT), recipe management with auto ingredient deduction
-- Expenses, profit & loss reports, employee management, account management
-- Multiple payment methods, split payments, thermal printing
-- Order types: dine-in, takeaway, delivery, pre-booking; table management
+Laravel API backend for clinic management:
+- Patients, doctors, departments, appointments, doctor schedules
+- Beds/allotments, blood bank/donors, pharmacy/medicines, orders
+- Birth/death/operation reports, services, offers
+- Appointment/order notifications, mail
 
-**Scale:** 43 models, 58 controllers, 13 test files, 9 migrations (consolidated).
+**Scale:** 27 migrations, ~20 models, 8 test files. API-only (no frontend).
 
-## Execution Baseline
-**NOT EXECUTED** — Laravel 8 dependencies conflict with PHP 8.3 environment (lcobucci/jwt/clock version incompatibility). Static analysis performed instead.
+## Candidate Score: 71/100
+Below the 75 threshold, but selected honestly: no stronger MIT-licensed clinic/pharmacy
+candidate exists (top-starred alternatives have NO license). The API-only nature is the
+upgrade opportunity — the Ahmed product delivers the complete experience.
 
 ## Strengths (Keep Conceptually)
-- Real restaurant operations depth: POS → KOT → recipe deduction → P&L
-- Multi-tenancy architecture (Stancl)
-- API authentication (Passport)
-- Split payments, multiple order types
+- Real clinic domain: appointments → doctors → patients → pharmacy
+- API-first design (matches Ahmed's architecture)
+- Notification system foundation
 
 ## Weaknesses / Gaps
-- Laravel 8 (EOL), Vue 2, AdminLTE (dated UI)
-- Only 13 test files for 58 controllers (thin coverage)
-- No granular RBAC (basic roles)
-- No analytics dashboard with real queries
+- No frontend at all
+- Basic auth (no granular RBAC)
+- No analytics dashboard
 - No audit logging
-- No CSV import/export
-- No approval workflows
+- Thin test coverage (8 files)
 
 ## Ahmed Transformation Plan
-**Product:** Ahmed Restaurant POS (ARPOS)
-**Tagline:** "Ahmed — Serve Every Order With Precision."
-**Stack:** Laravel 11 API (PHP 8.3) + React 18 SPA + JWT + RBAC
-**Repo:** ahmed-restaurant-pos-arpos
-
-**Strategy:** Domain model ported from upstream; full rebuild on Ahmed's proven stack (not a Laravel 8→11 upgrade — a clean reimplementation).
+**Product:** Ahmed Clinic Management System (ACMS)
+**Tagline:** "Ahmed — Care, Coordinated."
+**Stack:** Laravel 11 API + React 18 SPA + JWT + RBAC
+**Repo:** ahmed-clinic-management-system-acms
 
 **10 Differentiators:**
-1. Modern Laravel 11 API + React 18 SPA (vs Laravel 8 + Vue 2 + AdminLTE)
-2. JWT auth + granular RBAC permission matrix (vs Passport + basic roles)
-3. Real-time KOT (Kitchen Order Ticket) display with status workflow
-4. Recipe-based auto ingredient deduction with stock alerts
-5. Analytics dashboard (sales trends, top items, peak hours — real queries)
-6. Audit timeline for all financial operations
-7. CSV import (menu items, employees) + PDF exports (receipts, reports)
-8. Approval workflows (discounts, voids, refunds)
-9. Advanced search & filters (orders, menu, employees)
-10. Multi-branch support with branch isolation
+1. Complete React 18 SPA frontend (vs API-only)
+2. JWT + granular RBAC (9 roles: Admin, Doctor, Nurse, Receptionist, Pharmacist, Lab Tech, Accountant, Patient, Auditor)
+3. Appointment scheduling with doctor availability & conflict detection
+4. Patient records with visit history timeline
+5. Analytics dashboard (appointments, revenue, patient flow — real queries)
+6. Audit logging for medical/financial records
+7. Prescription management with pharmacy integration
+8. Bed management with occupancy tracking
+9. Advanced search & filters
+10. Notifications & reminders (appointment reminders)
 
-**License compliance:** MIT LICENSE preserved with original copyright, attribution section in README.
+**License compliance:** MIT LICENSE preserved, attribution in README.
